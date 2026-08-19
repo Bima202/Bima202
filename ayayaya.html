@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I Love You Ayyaya</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #0d0d0d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .heart-container {
+        position: relative;
+        width: 700px;
+        height: 700px;
+      }
+
+      .i_love_word {
+        position: absolute;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        font-size: 14px; /* Sedikit diperkecil agar teks panjang muat dengan rapi */
+        text-shadow:
+          0 0 5px #ff4da6,
+          0 0 12px #ff1a8c;
+        white-space: nowrap;
+        transform: translate(-50%, -50%);
+        animation: pulseGlow 2.5s infinite ease-in-out;
+      }
+
+      @keyframes pulseGlow {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: translate(-50%, -50%) scale(0.85);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.15);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heart-container" id="heart-container"></div>
+
+    <script>
+      const container = document.getElementById("heart-container");
+      const totalWords = 80; // Disesuaikan agar teks tidak terlalu padat
+      const scale = 16; // Ukuran bentuk hati
+
+      const centerX = 350;
+      const centerY = 320;
+
+      for (let i = 0; i < totalWords; i++) {
+        const word = document.createElement("div");
+        word.classList.add("i_love_word");
+
+        // Teks utama
+        word.innerText = "Ayyaya mbg";
+
+        const t = ((Math.PI * 2) / totalWords) * i;
+
+        // Rumus matematika kurva hati
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = -(
+          13 * Math.cos(t) -
+          5 * Math.cos(2 * t) -
+          2 * Math.cos(3 * t) -
+          Math.cos(4 * t)
+        );
+
+        const posX = centerX + x * scale;
+        const posY = centerY + y * scale;
+
+        word.style.left = `${posX}px`;
+        word.style.top = `${posY}px`;
+
+        // Delay animasi berdenyut bergelombang
+        word.style.animationDelay = `${(i / totalWords) * 2.5}s`;
+
+        container.appendChild(word);
+      }
+    </script>
+  </body>
+</html>
